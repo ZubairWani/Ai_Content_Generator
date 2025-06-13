@@ -59,18 +59,18 @@ const ContentIdeaAssistant = () => {
           <Sparkles className="w-8 h-8 text-white" />
         </div>
         <div>
-          <h1 className="text-4xl font-bold text-slate-800">AI Content Generator</h1>
+          <h1 className="text-xl md:text-4xl font-bold text-slate-800">AI Content Generator</h1>
           <p className="text-slate-600">Create viral content ideas powered by AI</p>
         </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 border-b border-slate-200">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 sm:p-6 border-b border-slate-200">
           <h2 className="text-xl font-semibold text-slate-800 mb-2">Generate Your Next Viral Post</h2>
-          <p className="text-slate-600">Tell us your topic and niche, and we'll create engaging content for you.</p>
+          <p className="text-slate-600">Tell us your topic and niche to get started.</p>
         </div>
         
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-8 space-y-6">
           <div>
             <label htmlFor="topic" className="block text-sm font-semibold text-slate-700 mb-3">
               Content Topic
@@ -81,8 +81,8 @@ const ContentIdeaAssistant = () => {
                 id="topic"
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
-                placeholder="e.g., 'Summer skincare routine for glowing skin'"
-                className="w-full px-4 py-4 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-slate-400"
+                placeholder="e.g., 'Summer skincare routine'"
+                className="w-full px-4 py-3 sm:py-4 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-slate-400"
               />
               <Target className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
             </div>
@@ -92,7 +92,7 @@ const ContentIdeaAssistant = () => {
             <label htmlFor="niche" className="block text-sm font-semibold text-slate-700 mb-3">
               Content Niche
             </label>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {contentNiches.map((n) => (
                 <label key={n.value} className="cursor-pointer">
                   <input
@@ -103,7 +103,7 @@ const ContentIdeaAssistant = () => {
                     onChange={(e) => setNiche(e.target.value)}
                     className="sr-only"
                   />
-                  <div className={`p-4 rounded-xl border-2 transition-all ${
+                  <div className={`p-3 sm:p-4 rounded-xl border-2 transition-all flex flex-col items-center text-center ${
                     niche === n.value 
                       ? 'border-blue-500 bg-blue-50 text-blue-700' 
                       : 'border-slate-200 hover:border-slate-300 text-slate-600'
@@ -137,7 +137,7 @@ const ContentIdeaAssistant = () => {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-xl flex items-center space-x-3">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 sm:px-6 py-4 rounded-xl flex items-center space-x-3">
           <div className="w-2 h-2 bg-red-500 rounded-full"></div>
           <span>Error: {error}</span>
         </div>
@@ -145,15 +145,15 @@ const ContentIdeaAssistant = () => {
       
       {result && (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-in">
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 border-b border-slate-200">
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 sm:p-6 border-b border-slate-200">
             <div className="flex items-center space-x-3">
               <Sparkles className="w-6 h-6 text-green-600" />
               <h2 className="text-xl font-semibold text-slate-800">Your Generated Content ✨</h2>
             </div>
           </div>
           
-          <div className="p-8 space-y-6">
-            <div className="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-xl border border-yellow-200">
+          <div className="p-4 sm:p-8 space-y-6">
+            <div className="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 sm:p-6 rounded-xl border border-yellow-200">
               <h3 className="font-semibold text-lg text-slate-800 mb-3 flex items-center space-x-2">
                 <Zap className="w-5 h-5 text-yellow-600" />
                 <span>Hook / Opening Line</span>
@@ -161,7 +161,7 @@ const ContentIdeaAssistant = () => {
               <p className="text-slate-700 text-lg italic">{result.hook}</p>
             </div>
             
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-200">
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 sm:p-6 rounded-xl border border-blue-200">
               <h3 className="font-semibold text-lg text-slate-800 mb-3 flex items-center space-x-2">
                 <Activity className="w-5 h-5 text-blue-600" />
                 <span>Reel Concept</span>
@@ -169,7 +169,7 @@ const ContentIdeaAssistant = () => {
               <p className="text-slate-700 leading-relaxed">{result.reelIdea}</p>
             </div>
             
-            <div className="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl border border-green-200">
+            <div className="bg-gradient-to-r from-green-50 to-teal-50 p-4 sm:p-6 rounded-xl border border-green-200">
               <h3 className="font-semibold text-lg text-slate-800 mb-3 flex items-center space-x-2">
                 <MessageCircle className="w-5 h-5 text-green-600" />
                 <span>Engaging Caption</span>
@@ -177,7 +177,7 @@ const ContentIdeaAssistant = () => {
               <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{result.caption}</p>
             </div>
             
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200">
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 sm:p-6 rounded-xl border border-purple-200">
               <h3 className="font-semibold text-lg text-slate-800 mb-3 flex items-center space-x-2">
                 <TrendingUp className="w-5 h-5 text-purple-600" />
                 <span>Trending Hashtags</span>
