@@ -6,8 +6,7 @@ import ContentIdeaAssistant from './pages/ContentIdeaAssistant';
 import AnalyticsDashboard from './pages/AnalyticsDashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Sidebar from './components/sidebar/sidebar'; 
-
+import Sidebar from './components/sidebar/sidebar';
 
 const MainLayout = ({ children }) => {
   return (
@@ -23,26 +22,24 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-  
-    const fetchAnalyticsData = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-       
-        const res = await fetch('/api/analytics');
-        if (!res.ok) {
-          throw new Error('Failed to fetch analytics data from server');
-        }
-        const apiData = await res.json();
-        setAnalyticsData(apiData);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
+  const fetchAnalyticsData = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/analytics');
+      if (!res.ok) {
+        throw new Error('Failed to fetch analytics data from server');
       }
-    };
+      const apiData = await res.json();
+      setAnalyticsData(apiData);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchAnalyticsData();
   }, []);
 
@@ -50,30 +47,32 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
-          
-          <Route 
-            path="/dashboard" 
+          <Route
+            path="/dashboard"
             element={
               <ProtectedRoute>
                 <MainLayout>
-                  <AnalyticsDashboard data={analyticsData} isLoading={isLoading} error={error} />
+                  <AnalyticsDashboard
+                    data={analyticsData}
+                    isLoading={isLoading}
+                    error={error}
+                    onRefresh={fetchAnalyticsData}
+                  />
                 </MainLayout>
               </ProtectedRoute>
-            } 
+            }
           />
 
-         
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={
               <MainLayout>
                 <ContentIdeaAssistant />
               </MainLayout>
-            } 
+            }
           />
         </Routes>
       </Router>

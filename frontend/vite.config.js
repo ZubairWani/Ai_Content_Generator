@@ -17,7 +17,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5001',
+        target: 'https://ai-content-generator-server-z1e2.onrender.com',
         changeOrigin: true,
       },
     },
