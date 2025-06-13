@@ -20,8 +20,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true); e
-    
+    setIsLoading(true);
    
     const result = await login(email, password);
 

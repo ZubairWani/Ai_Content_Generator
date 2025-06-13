@@ -59,8 +59,8 @@ const ContentIdeaAssistant = () => {
           <Sparkles className="w-8 h-8 text-white" />
         </div>
         <div>
-          <h1 className="text-xl md:text-4xl font-bold text-slate-800">AI Content Generator</h1>
-          <p className="text-slate-600">Create viral content ideas powered by AI</p>
+          <h1 className="text-2xl md:text-4xl font-bold text-slate-800">AI Content Generator</h1>
+          <p className="text-slate-600">Create AI-powered viral content</p>
         </div>
       </div>
 
