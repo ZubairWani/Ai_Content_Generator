@@ -2,6 +2,10 @@
 
 This is a full-stack MERN application designed to serve as a comprehensive toolkit for content creators. The platform features an AI-powered assistant for generating fresh content ideas and a secure, data-rich dashboard for tracking Instagram analytics.
 
+**Live Application:** [**https://ai-content-generator-atpo.onrender.com/**](https://ai-content-generator-atpo.onrender.com/)
+
+*(Note: The backend is hosted on Render's free tier, which may spin down due to inactivity. The first request might take 30-60 seconds to "wake up" the server.)*
+
 ---
 
 ## Core Features
@@ -9,51 +13,41 @@ This is a full-stack MERN application designed to serve as a comprehensive toolk
 ### 1. AI-Powered Content Idea Generator
 - **Intelligent Content Creation:** Users can input a topic and select a content niche (e.g., Fashion, Fitness, Tech) to receive AI-generated post ideas.
 - **Secure OpenAI Integration:** The backend securely communicates with the OpenAI API (GPT-3.5-Turbo) to generate a complete content package, including a hook, a detailed reel/post concept, an engaging caption, and relevant hashtags.
-- **Content Bank (Bonus Feature):** All generated content ideas are automatically saved to a dedicated MongoDB collection, creating a persistent "content bank" for the user to draw from.
+- **Content Bank (Bonus Feature):** All generated ideas are automatically saved to a MongoDB database for future reference.
+- **Fully Responsive UI:** The interface is designed to provide an excellent experience on both desktop and mobile devices, featuring a slide-out sidebar and a mobile-friendly bottom navigation bar.
 
 ### 2. Protected Instagram Analytics Dashboard
 - **Secure JWT Authentication:** The dashboard is a protected route, exclusively accessible to authenticated users. The system uses a robust JSON Web Token (JWT) strategy for managing user sessions securely.
 - **Database-Backed User System:** User registration and login are handled through the backend, with all user credentials securely stored in MongoDB. Passwords are never stored in plain text, using `bcrypt.js` for one-way hashing.
-- **Dynamic Data Visualization:** The dashboard renders analytics data fetched from a backend API endpoint, using the **Recharts** library to present information through dynamic and responsive charts.
-- **Key Metrics Overview:** At-a-glance KPIs such as Total Followers, Engagement Rate, Total Reach, and Impressions are displayed in a clean, modern interface.
+- **Dynamic Data Visualization:** The dashboard renders simulated analytics data fetched from the backend API, using the **Recharts** library to present information through dynamic and responsive charts.
+- **Interactive Controls:** Features functional buttons for refreshing data and exporting engagement metrics as a downloadable CSV report.
 
 ---
 
 ## Technology Stack
 
-This project is built on the MERN stack, leveraging a suite of modern technologies to create a fast, secure, and scalable application.
+This project is built on the **MERN** stack, leveraging a suite of modern technologies to create a fast, secure, and scalable application.
 
--   **Frontend:** React.js, React Router, Tailwind CSS, Recharts, Lucide React, Vite
+-   **Frontend:** React.js, React Router, Tailwind CSS, Recharts, Lucide React, Axios, Vite
 -   **Backend:** Node.js, Express.js
 -   **Database:** MongoDB with Mongoose
 -   **Authentication:** JSON Web Tokens (JWT), bcrypt.js
 -   **External APIs:** OpenAI API
+-   **Deployment:** Render
 
 ---
 
-## Project Setup Guide
+## Local Development Environment
 
-To run this application in a local development environment, please follow the steps below.
+The project is structured as a monorepo with separate `frontend` and `server` directories. Both services must be running concurrently for local development.
 
-### Backend Configuration
+### Backend Server (`/server`)
 
-The backend server is the core of the application, handling all business logic, database operations, and external API communication.
-
-1.  **Navigate to the `server` directory and install the required npm packages:**
-    ```
-    cd server
-    npm install
-    ```
-
-2.  **Set up Environment Variables:**
-    Create a `.env` file within the `server` directory. This file will store all necessary environment variables. Populate it according to the following structure:
-
+1.  **Install Dependencies:** All required backend packages are listed in the `package.json` file within the `/server` directory.
+2.  **Configure Environment Variables:** A `.env` file must be created in the `/server` directory. It should contain the following secret keys and configuration variables:
     ```ini
-    # MongoDB Connection String from Atlas
+    # MongoDB Connection String from Atlas or another provider
     MONGO_URI=your_mongodb_connection_string
-
-    # Port for the backend server
-    PORT= PORT
 
     # OpenAI API Secret Key
     OPENAI_API_KEY=your_openai_api_key
@@ -61,27 +55,11 @@ The backend server is the core of the application, handling all business logic, 
     # Secret key for signing JSON Web Tokens
     JWT_SECRET=your_super_secret_jwt_string
     ```
+3.  **Launch the Server:** Run the development script from the `/server` directory to start the backend. The server will connect to the database and listen for incoming API requests.
 
-3.  **Launch the Backend Server:**
-    Run the development server. It will connect to the database and listen for incoming requests.
-    ```
-    npm run dev
-    ```
+### Frontend Application (`/frontend`)
 
-### Frontend Configuration
-
-The frontend is a modern React application built with Vite.
-
-1.  **Navigate to the `frontend` directory in a new terminal and install dependencies:**
-    ```
-    cd frontend
-    npm install
-    ```
-
-2.  **Launch the Frontend Application:**
-    Start the Vite development server. It is pre-configured to proxy API requests to the backend.
-    ```
-    npm run dev
-    ```
+1.  **Install Dependencies:** All required frontend packages are listed in the `package.json` file within the `/frontend` directory.
+2.  **Launch the Application:** Run the development script from the `/frontend` directory. The Vite development server will start and is pre-configured to proxy all API requests to the running backend.
 
 ---
