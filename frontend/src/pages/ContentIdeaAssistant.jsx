@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Loader2, Sparkles, Target, Send, Zap, Activity, MessageCircle, TrendingUp } from 'lucide-react';
+import apiClient from '../api/axios';
 
 const ContentIdeaAssistant = () => {
   const [topic, setTopic] = useState('');
@@ -29,24 +30,10 @@ const ContentIdeaAssistant = () => {
     setResult(null);
 
     try {
-      const res = await fetch('/api/openai/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ topic, niche }),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'Failed to generate content from the server.');
-      }
-
-      const generatedResult = await res.json();
-      setResult(generatedResult);
-
+      const response = await apiClient.post('/api/openai/generate', { topic, niche });
+      setResult(response.data);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || 'Failed to generate content.');
     } finally {
       setIsLoading(false);
     }

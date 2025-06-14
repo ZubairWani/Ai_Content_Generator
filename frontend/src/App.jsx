@@ -7,8 +7,9 @@ import AnalyticsDashboard from './pages/AnalyticsDashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Sidebar from './components/sidebar/sidebar';
-import MobileMenuBar from './components/MobileMenuBar'; 
-import { Menu, X } from 'lucide-react'; 
+import MobileMenuBar from './components/MobileMenuBar';
+import { Menu, X } from 'lucide-react';
+import apiClient from './api/axios';
 
 const MainLayout = ({ children, isSidebarOpen, setIsSidebarOpen }) => {
   return (
@@ -42,14 +43,10 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/analytics');
-      if (!res.ok) {
-        throw new Error('Failed to fetch analytics data from server');
-      }
-      const apiData = await res.json();
-      setAnalyticsData(apiData);
+      const response = await apiClient.get('/api/analytics');
+      setAnalyticsData(response.data);
     } catch (err) {
-      setError(err);
+      setError(err.response?.data?.message || err.message);
     } finally {
       setIsLoading(false);
     }

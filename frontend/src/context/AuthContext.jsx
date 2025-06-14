@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import apiClient from '../api/axios';
 
 const AuthContext = createContext();
 
@@ -7,7 +8,6 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-
   const [user, setUser] = useState(() => {
     try {
       const storedUser = localStorage.getItem('user');
@@ -28,48 +28,23 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (name, email, password) => {
     try {
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-      
-      const data = await response.json();
+      const response = await apiClient.post('/api/users', { name, email, password });
 
-      if (response.ok) {
-        setUser(data);
-        return { success: true };
-      } else {
-        return { success: false, message: data.message || 'Signup failed.' };
-      }
+      setUser(response.data); 
+      return { success: true };
     } catch (error) {
-      return { success: false, message: 'Could not connect to the server.' };
+      return { success: false, message: error.response?.data?.message || 'Signup failed.' };
     }
   };
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('/api/users/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
-      });
+      const response = await apiClient.post('/api/users/login', { email, password });
       
-      const data = await response.json();
-
-      if (response.ok) {
-          setUser(data);
-          return { success: true };
-      } else {
-          
-          return { success: false, message: data.message || 'Invalid credentials.' };
-      }
+      setUser(response.data);
+      return { success: true };
     } catch (error) {
-        return { success: false, message: 'Could not connect to the server.' };
+      return { success: false, message: error.response?.data?.message || 'Invalid credentials.' };
     }
   };
 
