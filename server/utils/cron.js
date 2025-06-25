@@ -8,8 +8,7 @@ cron.schedule('* * * * *', async () => {
 
         // Make GET request to the root endpoint
         const response = await axios.get('https://ai-content-generator-server-z1e2.onrender.com');
-        
-        console.log("resp", response)
+       
 
         console.log('API response status:', response.status);
         console.log('API response data:', response.data);
