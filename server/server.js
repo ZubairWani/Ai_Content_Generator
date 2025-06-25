@@ -1,6 +1,6 @@
 // server/server.js
 const dotenv = require('dotenv');
-
+const initializeCronJobs = require("./utils/cron");
 dotenv.config();
 
 const express = require('express');
@@ -29,6 +29,13 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/openai', openaiRoutes);
 app.use('/api/users', userRoutes); 
 
+app.get("/", (req, res) => {
+    return res.status(200).json({ message: "Backend" })
+})
+
 const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    initializeCronJobs();
+    console.log(`Server running on port ${PORT}`);
+}) 
