@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 
 function initializeCronJobs() {
-cron.schedule('* * * * *', async () => {
+cron.schedule('*/14 * * * *', async () => {
     try {
         console.log('Running cron job at:', new Date().toISOString());
 
